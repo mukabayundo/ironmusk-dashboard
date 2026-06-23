@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ImageProvider } from './context/ImageContext';
 import AppLayout from './components/AppLayout';
 import ImageFolder from './pages/ImageFolder';
+import Dashboard from './pages/Dashboard';
 import { 
-  DashboardPlaceholder, 
   VideoPlaceholder, 
   DocumentPlaceholder, 
   AllFilesPlaceholder, 
@@ -23,7 +23,7 @@ function App() {
           {/* Main Layout and routes */}
           <Route path="/file-manager" element={<AppLayout />}>
             <Route path="images" element={<ImageFolder />} />
-            <Route path="dashboard" element={<DashboardPlaceholder />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="videos" element={<VideoPlaceholder />} />
             <Route path="documents" element={<DocumentPlaceholder />} />
             <Route path="all-files" element={<AllFilesPlaceholder />} />

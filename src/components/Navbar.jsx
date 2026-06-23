@@ -1,5 +1,15 @@
 import React from 'react';
-import { FiSearch, FiMenu, FiArrowLeft, FiShoppingBag, FiMail, FiBell, FiUser } from 'react-icons/fi';
+import { 
+  FiSearch, 
+  FiMenu, 
+  FiArrowLeft, 
+  FiHome, 
+  FiFileText, 
+  FiLayers, 
+  FiDatabase, 
+  FiUser, 
+  FiEdit2 
+} from 'react-icons/fi';
 import { useImages } from '../context/ImageContext';
 
 export default function Navbar() {
@@ -8,7 +18,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-borderGray bg-white px-6 shadow-navbar">
       {/* Left side actions and breadcrumbs */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         {/* Toggle Sidebar (Mobile) */}
         <button 
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -17,30 +27,55 @@ export default function Navbar() {
           <FiMenu size={20} />
         </button>
 
-        {/* Back Arrow */}
-        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-light text-primary hover:bg-primary hover:text-white transition-all duration-200">
-          <FiArrowLeft size={16} />
-        </button>
+        {/* Back Arrow & Dashboard Breadcrumb */}
+        <div className="flex items-center gap-2">
+          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white hover:bg-primary-hover transition-all duration-200 shadow-sm">
+            <FiArrowLeft size={16} />
+          </button>
+          <span className="text-textMuted font-medium text-sm hidden sm:inline">Dashboard</span>
+        </div>
 
-        {/* Navigation Breadcrumbs */}
-        <div className="hidden items-center gap-2 text-xs font-medium md:flex">
-          <span className="text-primary hover:underline cursor-pointer">Image</span>
-          <span className="text-textMuted">/</span>
-          <span className="text-textMuted hover:text-textMain cursor-pointer">Home</span>
-          <span className="text-textMuted">/</span>
-          <span className="text-textMuted hover:text-textMain cursor-pointer">Pages</span>
-          <span className="text-textMuted">/</span>
-          <span className="text-textMuted hover:text-textMain cursor-pointer">Elements</span>
+        {/* Vertical divider */}
+        <div className="hidden h-5 w-[1px] bg-borderGray md:block"></div>
+
+        {/* Navigation Breadcrumbs / Links */}
+        <div className="hidden items-center gap-4 md:flex">
+          {/* Home Link (Active) */}
+          <a 
+            href="#" 
+            className="flex items-center gap-1.5 px-1 py-4 text-primary border-b-2 border-primary font-semibold text-sm transition-all"
+          >
+            <FiHome size={15} />
+            <span>Home</span>
+          </a>
+
+          {/* Pages Link */}
+          <a 
+            href="#" 
+            className="flex items-center gap-1.5 px-1 py-4 text-textMuted hover:text-textMain font-medium text-sm transition-all"
+          >
+            <FiFileText size={15} />
+            <span>Pages</span>
+          </a>
+
+          {/* Elements Link */}
+          <a 
+            href="#" 
+            className="flex items-center gap-1.5 px-1 py-4 text-textMuted hover:text-textMain font-medium text-sm transition-all"
+          >
+            <FiLayers size={15} />
+            <span>Elements</span>
+          </a>
         </div>
       </div>
 
       {/* Right side controls */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-5">
         {/* Font scale indicator "A A A" */}
-        <div className="flex items-center gap-1 bg-gray-50 p-1 rounded-lg text-xs font-bold border border-borderGray">
-          <button className="px-2 py-1 text-textMuted hover:text-textMain transition-all">A</button>
-          <button className="bg-primary text-white px-2 py-1 rounded shadow-sm">A</button>
-          <button className="px-2 py-1 text-textMuted hover:text-textMain transition-all">A</button>
+        <div className="flex items-center gap-1.5 bg-gray-50 p-1 rounded-lg text-xs font-bold border border-borderGray">
+          <button className="px-2.5 py-1 text-textMuted hover:text-textMain transition-all text-xs font-normal">A</button>
+          <button className="bg-primary text-white px-2.5 py-1 rounded-md shadow-sm text-xs font-bold">A</button>
+          <button className="px-2.5 py-1 text-textMuted hover:text-textMain transition-all text-xs font-normal">A</button>
         </div>
 
         {/* Search input */}
@@ -56,40 +91,24 @@ export default function Navbar() {
         </div>
 
         {/* Right side action icons */}
-        <div className="flex items-center gap-2.5">
-          {/* Shopping Cart Button */}
-          <button className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary-light text-primary hover:bg-primary hover:text-white transition-all duration-200">
-            <FiShoppingBag size={15} />
-            <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white border border-white">
-              3
-            </span>
+        <div className="flex items-center gap-2">
+          {/* Database/Drive Button */}
+          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white hover:bg-primary-hover transition-all duration-200 shadow-sm">
+            <FiDatabase size={14} />
           </button>
 
-          {/* Messages Button */}
-          <button className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary-light text-primary hover:bg-primary hover:text-white transition-all duration-200">
-            <FiMail size={15} />
-            <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white border border-white">
-              5
-            </span>
+          {/* Profile User Button */}
+          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white hover:bg-primary-hover transition-all duration-200 shadow-sm">
+            <FiUser size={14} />
           </button>
 
-          {/* Notifications Button */}
-          <button className="relative flex h-8 w-8 items-center justify-center rounded-full bg-primary-light text-primary hover:bg-primary hover:text-white transition-all duration-200">
-            <FiBell size={15} />
-            <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-green-500 text-[9px] font-bold text-white border border-white">
-              2
-            </span>
-          </button>
-
-          {/* Divider */}
-          <div className="h-6 w-[1px] bg-borderGray mx-1"></div>
-
-          {/* Profile Dropdown Trigger */}
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white hover:bg-primary-hover transition-all duration-200">
-            <FiUser size={15} />
+          {/* Edit/Pencil Button */}
+          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white hover:bg-primary-hover transition-all duration-200 shadow-sm">
+            <FiEdit2 size={14} />
           </button>
         </div>
       </div>
     </header>
   );
 }
+
