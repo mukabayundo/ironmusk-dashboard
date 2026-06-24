@@ -78,25 +78,112 @@ const INITIAL_IMAGES = [
   }
 ];
 
+const INITIAL_VIDEOS = [
+  {
+    id: 'vid1',
+    title: 'Video-1234725783.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 5,
+    category: 'Travel',
+    duration: '02:48',
+    description: 'A beautiful travel preview featuring scenic beaches and relaxing landscapes.'
+  },
+  {
+    id: 'vid2',
+    title: 'Video-25783.mkv',
+    thumbnail: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'Nature',
+    duration: '03:12',
+    description: 'Nature footage with sunlit palms and ocean views for a calm preview experience.'
+  },
+  {
+    id: 'vid3',
+    title: 'Video-49895383.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 30,
+    category: 'Beach',
+    duration: '01:58',
+    description: 'A beach day highlight reel with crisp, vibrant summer scenery.'
+  },
+  {
+    id: 'vid4',
+    title: 'Video-4509853.mkv',
+    thumbnail: 'https://images.unsplash.com/photo-1501769214405-5e86a9d0a09e?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 6,
+    category: 'Lifestyle',
+    duration: '04:05',
+    description: 'A modern lifestyle preview with polished visuals and upbeat motion.'
+  },
+  {
+    id: 'vid5',
+    title: 'Video-280397557.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1494526585095-c41746248156?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 20,
+    category: 'Architecture',
+    duration: '02:10',
+    description: 'Cinematic architecture b-roll with slow motion highlights and city lighting.'
+  },
+  {
+    id: 'vid6',
+    title: 'Video-76935783.mkv',
+    thumbnail: 'https://images.unsplash.com/photo-1454789476662-53eb840e5b8a?w=900&auto=format&fit=crop&q=80',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2 - 1000 * 60 * 10,
+    category: 'Studio',
+    duration: '03:55',
+    description: 'A studio-based edit showcasing modern production and motion design.'
+  }
+];
+
 export const ImageProvider = ({ children }) => {
   const [images, setImages] = useState(INITIAL_IMAGES);
+  const [videos, setVideos] = useState(INITIAL_VIDEOS);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Mark an image as opened and open modal
   const openImage = (id) => {
-    setImages(prevImages =>
-      prevImages.map(img =>
+    setImages(prevImages => {
+      const updated = prevImages.map(img =>
         img.id === id ? { ...img, lastOpened: Date.now() } : img
-      )
-    );
-    const clickedImg = images.find(img => img.id === id);
-    setSelectedImage(clickedImg);
+      );
+      const clickedImg = updated.find(img => img.id === id);
+      setSelectedImage(clickedImg);
+      return updated;
+    });
   };
 
   const closeImageModal = () => {
     setSelectedImage(null);
+  };
+
+  const selectVideo = (id) => {
+    setVideos(prevVideos => {
+      const updated = prevVideos.map(video =>
+        video.id === id ? { ...video, lastOpened: Date.now() } : video
+      );
+      const clickedVideo = updated.find(video => video.id === id);
+      setSelectedVideo(clickedVideo);
+      return updated;
+    });
+  };
+
+  const closeVideoModal = () => {
+    setSelectedVideo(null);
   };
 
   // Helper to format relative time
@@ -124,6 +211,10 @@ export const ImageProvider = ({ children }) => {
     .filter(img => img.lastOpened !== null)
     .sort((a, b) => b.lastOpened - a.lastOpened);
 
+  const filteredVideos = videos.filter(video =>
+    video.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // All Images filtered by search query
   const filteredAllImages = images.filter(img =>
     img.fileName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -132,15 +223,20 @@ export const ImageProvider = ({ children }) => {
   return (
     <ImageContext.Provider value={{
       images,
+      videos,
       recentlyViewed,
+      filteredVideos,
       filteredAllImages,
       selectedImage,
+      selectedVideo,
       searchQuery,
       sidebarOpen,
       setSidebarOpen,
       setSearchQuery,
       openImage,
       closeImageModal,
+      selectVideo,
+      closeVideoModal,
       getRelativeTimeString
     }}>
       {children}

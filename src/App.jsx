@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ImageProvider } from './context/ImageContext';
 import AppLayout from './components/AppLayout';
 import ImageFolder from './pages/ImageFolder';
+import VideoFolder from './pages/VideoFolder';
 import Dashboard from './pages/Dashboard';
 import { 
-  VideoPlaceholder, 
   DocumentPlaceholder, 
   AllFilesPlaceholder, 
   TrashPlaceholder, 
@@ -24,7 +24,7 @@ function App() {
           <Route path="/file-manager" element={<AppLayout />}>
             <Route path="images" element={<ImageFolder />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="videos" element={<VideoPlaceholder />} />
+            <Route path="videos" element={<VideoFolder />} />
             <Route path="documents" element={<DocumentPlaceholder />} />
             <Route path="all-files" element={<AllFilesPlaceholder />} />
             <Route path="trash" element={<TrashPlaceholder />} />
