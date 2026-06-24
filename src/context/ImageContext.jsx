@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const ImageContext = createContext();
 
@@ -255,6 +255,11 @@ export const ImageProvider = ({ children }) => {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [fontSize, setFontSize] = useState(16);
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontSize}px`;
+  }, [fontSize]);
 
   // Mark an image as opened and open modal
   const openImage = (id) => {
@@ -362,7 +367,9 @@ export const ImageProvider = ({ children }) => {
       closeVideoModal,
       selectDocument,
       closeDocumentModal,
-      getRelativeTimeString
+      getRelativeTimeString,
+      fontSize,
+      setFontSize
     }}>
       {children}
     </ImageContext.Provider>

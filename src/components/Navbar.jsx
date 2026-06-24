@@ -13,7 +13,14 @@ import {
 import { useImages } from '../context/ImageContext';
 
 export default function Navbar() {
-  const { searchQuery, setSearchQuery, sidebarOpen, setSidebarOpen } = useImages();
+  const {
+    searchQuery,
+    setSearchQuery,
+    sidebarOpen,
+    setSidebarOpen,
+    fontSize,
+    setFontSize
+  } = useImages();
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-borderGray bg-white px-6 shadow-navbar">
@@ -73,9 +80,27 @@ export default function Navbar() {
       <div className="flex items-center gap-5">
         {/* Font scale indicator "A A A" */}
         <div className="flex items-center gap-1.5 bg-gray-50 p-1 rounded-lg text-xs font-bold border border-borderGray">
-          <button className="px-2.5 py-1 text-textMuted hover:text-textMain transition-all text-xs font-normal">A</button>
-          <button className="bg-primary text-white px-2.5 py-1 rounded-md shadow-sm text-xs font-bold">A</button>
-          <button className="px-2.5 py-1 text-textMuted hover:text-textMain transition-all text-xs font-normal">A</button>
+          <button
+            onClick={() => setFontSize(26)}
+            className={`px-2.5 py-1 rounded-md transition-all text-xs font-bold ${fontSize === 26 ? 'bg-primary text-white shadow-sm' : 'text-textMuted hover:text-textMain'}`}
+            aria-label="Set font size to 26px"
+          >
+            A
+          </button>
+          <button
+            onClick={() => setFontSize(16)}
+            className={`px-2.5 py-1 rounded-md transition-all text-xs font-bold ${fontSize === 16 ? 'bg-primary text-white shadow-sm' : 'text-textMuted hover:text-textMain'}`}
+            aria-label="Set font size to 16px"
+          >
+            A
+          </button>
+          <button
+            onClick={() => setFontSize(18)}
+            className={`px-2.5 py-1 rounded-md transition-all text-xs font-bold ${fontSize === 18 ? 'bg-primary text-white shadow-sm' : 'text-textMuted hover:text-textMain'}`}
+            aria-label="Set font size to 18px"
+          >
+            A
+          </button>
         </div>
 
         {/* Search input */}

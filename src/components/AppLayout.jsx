@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { useImages } from '../context/ImageContext';
 
 export default function AppLayout() {
-  const { sidebarOpen, setSidebarOpen } = useImages();
+  const { sidebarOpen, setSidebarOpen, fontSize } = useImages();
 
   return (
     <div className="min-h-screen bg-pageBg text-textMain">
@@ -30,7 +30,7 @@ export default function AppLayout() {
         )}
 
         {/* Content Outlet */}
-        <main className="flex-grow p-6 md:p-8">
+        <main className="flex-grow p-6 md:p-8" style={{ fontSize: `${fontSize}px` }}>
           <Outlet />
         </main>
 

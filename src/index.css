@@ -7,7 +7,6 @@
 @layer base {
   body {
     @apply bg-pageBg text-textMain font-sans antialiased overflow-x-hidden;
-    font-size: 14px;
   }
 }
 
