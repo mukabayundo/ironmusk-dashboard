@@ -4,10 +4,10 @@ import { ImageProvider } from './context/ImageContext';
 import AppLayout from './components/AppLayout';
 import ImageFolder from './pages/ImageFolder';
 import VideoFolder from './pages/VideoFolder';
+import DocumentFolder from './pages/DocumentFolder';
+import AllFiles from './pages/AllFiles';
 import Dashboard from './pages/Dashboard';
 import { 
-  DocumentPlaceholder, 
-  AllFilesPlaceholder, 
   TrashPlaceholder, 
   SignOutPage 
 } from './pages/PlaceholderPages';
@@ -25,8 +25,8 @@ function App() {
             <Route path="images" element={<ImageFolder />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="videos" element={<VideoFolder />} />
-            <Route path="documents" element={<DocumentPlaceholder />} />
-            <Route path="all-files" element={<AllFilesPlaceholder />} />
+            <Route path="documents" element={<DocumentFolder />} />
+            <Route path="all-files" element={<AllFiles />} />
             <Route path="trash" element={<TrashPlaceholder />} />
           </Route>
           

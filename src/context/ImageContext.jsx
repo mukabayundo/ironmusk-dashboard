@@ -147,11 +147,112 @@ const INITIAL_VIDEOS = [
   }
 ];
 
+const INITIAL_DOCUMENTS = [
+  {
+    id: 'doc1',
+    fileName: 'Doc-123472578.pdf',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60,
+    category: 'PDF',
+    size: '5 MB'
+  },
+  {
+    id: 'doc2',
+    fileName: 'Doc-25783.xlsx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'Excel',
+    size: '2 MB'
+  },
+  {
+    id: 'doc3',
+    fileName: 'abc-25783.doc',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 30,
+    category: 'Word',
+    size: '7 MB'
+  },
+  {
+    id: 'doc4',
+    fileName: 'xyz-25783.pptx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'PowerPoint',
+    size: '12 MB'
+  },
+  {
+    id: 'doc5',
+    fileName: 'abd-25783.doc',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 30,
+    category: 'Word',
+    size: '10 MB'
+  },
+  {
+    id: 'doc6',
+    fileName: 'abc-123472578.pptx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60,
+    category: 'PowerPoint',
+    size: '58 KB'
+  },
+  {
+    id: 'doc7',
+    fileName: 'lst-25783.xlsx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'Excel',
+    size: '2 MB'
+  },
+  {
+    id: 'doc8',
+    fileName: 'Themes-123472578.pdf',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60,
+    category: 'PDF',
+    size: '15 MB'
+  },
+  {
+    id: 'doc9',
+    fileName: 'Students-25783.xlsx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'Excel',
+    size: '12 MB'
+  },
+  {
+    id: 'doc10',
+    fileName: 'Projects-25783.doc',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 30,
+    category: 'Word',
+    size: '14 MB'
+  },
+  {
+    id: 'doc11',
+    fileName: 'Certificate-25783.pdf',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 30,
+    category: 'PDF',
+    size: '24 MB'
+  },
+  {
+    id: 'doc12',
+    fileName: 'CV-25783.pptx',
+    createdDate: 'Dec 13, 2020',
+    lastOpened: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    category: 'PowerPoint',
+    size: '8 MB'
+  }
+];
+
 export const ImageProvider = ({ children }) => {
   const [images, setImages] = useState(INITIAL_IMAGES);
   const [videos, setVideos] = useState(INITIAL_VIDEOS);
+  const [documents, setDocuments] = useState(INITIAL_DOCUMENTS);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedDocument, setSelectedDocument] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -186,6 +287,21 @@ export const ImageProvider = ({ children }) => {
     setSelectedVideo(null);
   };
 
+  const selectDocument = (id) => {
+    setDocuments(prevDocuments => {
+      const updated = prevDocuments.map(doc =>
+        doc.id === id ? { ...doc, lastOpened: Date.now() } : doc
+      );
+      const clickedDoc = updated.find(doc => doc.id === id);
+      setSelectedDocument(clickedDoc);
+      return updated;
+    });
+  };
+
+  const closeDocumentModal = () => {
+    setSelectedDocument(null);
+  };
+
   // Helper to format relative time
   const getRelativeTimeString = (timestamp) => {
     if (!timestamp) return 'Never opened';
@@ -215,6 +331,10 @@ export const ImageProvider = ({ children }) => {
     video.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredDocuments = documents.filter(doc =>
+    doc.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // All Images filtered by search query
   const filteredAllImages = images.filter(img =>
     img.fileName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -224,11 +344,14 @@ export const ImageProvider = ({ children }) => {
     <ImageContext.Provider value={{
       images,
       videos,
+      documents,
       recentlyViewed,
       filteredVideos,
+      filteredDocuments,
       filteredAllImages,
       selectedImage,
       selectedVideo,
+      selectedDocument,
       searchQuery,
       sidebarOpen,
       setSidebarOpen,
@@ -237,6 +360,8 @@ export const ImageProvider = ({ children }) => {
       closeImageModal,
       selectVideo,
       closeVideoModal,
+      selectDocument,
+      closeDocumentModal,
       getRelativeTimeString
     }}>
       {children}
