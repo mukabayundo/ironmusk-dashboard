@@ -6,11 +6,9 @@ import ImageFolder from './pages/ImageFolder';
 import VideoFolder from './pages/VideoFolder';
 import DocumentFolder from './pages/DocumentFolder';
 import AllFiles from './pages/AllFiles';
+import TrashFolder from './pages/TrashFolder';
 import Dashboard from './pages/Dashboard';
-import { 
-  TrashPlaceholder, 
-  SignOutPage 
-} from './pages/PlaceholderPages';
+import { SignOutPage } from './pages/PlaceholderPages';
 
 function App() {
   return (
@@ -27,7 +25,7 @@ function App() {
             <Route path="videos" element={<VideoFolder />} />
             <Route path="documents" element={<DocumentFolder />} />
             <Route path="all-files" element={<AllFiles />} />
-            <Route path="trash" element={<TrashPlaceholder />} />
+            <Route path="trash" element={<TrashFolder />} />
           </Route>
           
           {/* Other routes */}
